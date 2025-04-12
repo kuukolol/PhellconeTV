@@ -3,9 +3,15 @@ from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 from datetime import datetime
 
+from module.tags_metadata import tags_metadata
 from routes import gadgets, auth
 
-app = FastAPI()
+app = FastAPI(
+    title="Phelcone Gadget Store",
+    version="0.1.0",
+    description="A WEBSYS project",
+    openapi_tags=tags_metadata,
+)
 
 
 @app.middleware("http")
@@ -30,9 +36,3 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(gadgets.router)
 app.include_router(auth.router)
 app.add_middleware(SessionMiddleware, secret_key="9@S~`#+WS£74^rKaCp-6H51s[%")
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run("main:app", reload=True, host="0.0.0.0")
-
