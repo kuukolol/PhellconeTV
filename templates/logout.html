@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Logged out',
+        text: 'You have been successfully logged out!',
+        confirmButtonColor: '#3085d6'
+    }).then(() => {
+        window.location.href = "/login";
+    });
+</script>
+{% endblock %}

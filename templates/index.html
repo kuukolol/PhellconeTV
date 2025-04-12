@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Welcome to PhellconeTV{% endblock %}
+{% block content %}
+
+<section id="home" class="fullheight align-items-center bg-img bg-img-fixed"
+    style="background-image: url('{{ url_for('static', path='assets/images/banner.svg') }}'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-6">
+                <div class="slogan text-light">
+                    <h1 class="left-to-right play-on-scroll">
+                        <img src="{{ url_for('static', path='assets/images/logo.svg') }}" alt="Logo" />
+                    </h1>
+                    <p class="left-to-right play-on-scroll delay-2">
+                        PhellconeTV – Your go-to spot for phone reviews, latest releases, expert tips, and
+                        comparisons.
+                        From Android to iPhone, budget to flagship – we’ve got you covered.
+                        Find your perfect phone today!
+                    </p>
+                    <div class="left-to-right play-on-scroll delay-4">
+                        <a href="/register"><button>Join Now</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 d-none d-md-block"></div>
+        </div>
+    </div>
+</section>
+{% if show_gadgets %}
+{% include "partials/gadgets.html" %}
+{% endif %}
+
+{% endblock %}

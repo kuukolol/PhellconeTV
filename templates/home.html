@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Home - PhellconeTV{% endblock %}
+
+{% block content %}
+<section id="home" class="fullheight align-items-center bg-img bg-img-fixed"
+    style="background-image: url('{{ url_for('static', path='assets/images/banner.svg') }}');">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-xs-12">
+                <div class="slogan">
+                    <h1 class="left-to-right play-on-scroll">
+                        <img src="{{ url_for('static', path='assets/images/logo.svg') }}" alt="Logo" />
+                    </h1>
+                    <p class="left-to-right play-on-scroll delay-2">
+                        Welcome back, {{ user.username }}! Check out the latest gadgets.
+                    </p>
+                    <div class="left-to-right play-on-scroll delay-4">
+                        <a href="/gadgets"><button>Order now</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("login") && params.get("login") === "success") {
+        Swal.fire({
+            title: 'Login Successful!',
+            text: 'Welcome back!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    } else if (params.has("logout") && params.get("logout") === "success") {
+        Swal.fire({
+            title: 'Logged Out',
+            text: 'See you again soon!',
+            icon: 'info',
+            confirmButtonText: 'OK'
+        });
+    }
+    {% if logout_success %}
+    <script>
+        Swal.fire({
+            icon: 'success',
+        title: 'Logged out',
+        text: 'You have been successfully logged out!',
+        confirmButtonColor: '#0F9D58'
+    });
+</script>
+{% endif %}
+
+</script>
+{% endblock %}
