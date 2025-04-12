@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}PhellconeTV{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="{{ url_for('static', path='assets/css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', path='assets/css/fullpage.css') }}" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <div class="mb-nav">
+        <div class="mb-move-item"></div>
+        <div class="mb-nav-item active"><a href="#home"><i class="bx bxs-home"></i></a></div>
+        {% if user %}
+        <div class="mb-nav-item"><a href="/gadgets"><i class="bx bx-mobile-alt"></i></a></div>
+        {% endif %}
+        <div class="mb-nav-item"><a href="#about-us"><i class="bx bxs-comment-detail"></i></a></div>
+    </div>
+
+    <a href="#home" class="back-to-top"><i class="bx bxs-to-top"></i></a>
+
+    <div class="nav">
+        <div class="menu-wrap">
+            <div class="left-section">
+                <a href="{% if user %}/home{% else %}#{% endif %}" class="logo-link">
+                    <img src="{{ url_for('static', path='assets/images/logo.svg') }}" alt="Logo" class="logo-img" />
+                </a>
+                <div class="search-box {% if not user %}invisible{% endif %}">
+                    <input type="text" id="gadgetSearch" placeholder="Search gadgets..." autocomplete="off" />
+                    <ul id="searchSuggestions" class="suggestion-list"></ul>
+                </div>
+            </div>
+
+            <div class="menu h-xs">
+                <a href="/home">
+                    <div class="menu-item active">Home</div>
+                </a>
+                {% if user %}
+                <a href="/gadgets">
+                    <div class="menu-item">Gadgets</div>
+                </a>
+                {% endif %}
+                <a href="#about-us">
+                    <div class="menu-item">About Us</div>
+                </a>
+            </div>
+
+            <div class="right-menu">
+                {% if user %}
+                <div class="cart-btn"><i class="bx bx-cart-alt"></i></div>
+                <div class="avatar-container" id="avatarBtn">
+                    <i class="fas fa-user avatar-icon"></i>
+                    <div class="dropdown-menu" id="profileDropdown">
+                        <a href="#">My Orders</a>
+                        <a href="#">Settings</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="login-register">
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    {% block content %}{% endblock %}
+
+    <script>
+        const avatarBtn = document.getElementById("avatarBtn");
+        const dropdown = document.getElementById("profileDropdown");
+
+        avatarBtn?.addEventListener("click", function (e) {
+            e.stopPropagation();
+            dropdown.classList.toggle("show");
+        });
+
+        window.addEventListener("click", function (e) {
+            if (!avatarBtn.contains(e.target)) {
+                dropdown.classList.remove("show");
+            }
+        });
+    </script>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="{{ url_for('static', path='assets/js/main.js') }}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+
+</html>

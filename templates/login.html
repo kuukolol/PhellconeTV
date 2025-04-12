@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Login | PhellconeTV{% endblock %}
+
+{% block content %}
+<div class="nav guest-nav">
+    <div class="menu-wrap">
+        <div class="left-section">
+            <a href="/" class="logo-link">
+                <img src="{{ url_for('static', path='assets/images/logo.svg') }}" alt="Logo" class="logo-img" />
+            </a>
+        </div>
+        <div class="menu h-xs">
+            <a href="/#home">
+                <div class="menu-item">Home</div>
+            </a>
+            <a href="/#about-us">
+                <div class="menu-item">About Us</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<section class="auth-section">
+    <div class="auth-card" data-aos="fade-up">
+        <h2 class="auth-title">Login to PhellconeTV</h2>
+        <form method="post" action="/login" class="auth-form">
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit" class="btn-auth">Login</button>
+        </form>
+        <p class="auth-footer">Don't have an account? <a href="/register">Register</a></p>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    {% if login_success %}
+    Swal.fire({
+        icon: "success",
+        title: "Login Successful!",
+        text: "Welcome back!",
+        confirmButtonColor: "#8c7ae6",
+        confirmButtonText: "OK",
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.body.style.opacity = "0";
+            setTimeout(() => {
+                window.location.href = "/home";
+            }, 500);
+        }
+    });
+    {% elif login_error %}
+    Swal.fire({
+        title: 'Login Failed',
+        text: 'Incorrect username or password.',
+        icon: 'error',
+        confirmButtonText: 'Try Again'
+    });
+    {% endif %}
+</script>
+{% endblock %}

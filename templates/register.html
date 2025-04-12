@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Register | PhellconeTV{% endblock %}
+
+{% block content %}
+<div id="flags" {% if registered %} data-registered="true" {% endif %} {% if error %} data-error="true"
+    data-message="{{ error }}" {% endif %}>
+</div>
+
+<div class="nav guest-nav">
+    <div class="menu-wrap">
+        <div class="left-section">
+            <a href="/" class="logo-link">
+                <img src="{{ url_for('static', path='assets/images/logo.svg') }}" alt="Logo" class="logo-img" />
+            </a>
+        </div>
+        <div class="menu h-xs">
+            <a href="/#home">
+                <div class="menu-item">Home</div>
+            </a>
+            <a href="/#about-us">
+                <div class="menu-item">About Us</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<section class="auth-section">
+    <div class="auth-card" data-aos="fade-up">
+        <h2 class="auth-title">Create Your Account</h2>
+        <form id="registerForm" class="auth-form" method="post" action="/register">
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="email" name="email" placeholder="Email" required autocomplete="new-email" />
+            <input type="password" name="password" placeholder="Password" required autocomplete="new-password" />
+            <button type="submit" class="btn-auth">Register</button>
+        </form>
+        <p class="auth-footer">Already have an account? <a href="/login">Login</a></p>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', path='assets/js/auth.js') }}"></script>
+{% endblock %}

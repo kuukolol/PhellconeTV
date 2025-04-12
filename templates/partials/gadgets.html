@@ -1,0 +1,35 @@
+<section class="align-items-center bg-img bg-img-fixed" id="gadgets-menu"
+    style="background-image: url('{{ url_for('static', path='assets/images/banner.svg') }}'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="gadget-menu">
+            <h1>What will <span class="primary-color">you</span> get today?</h1>
+            <p>PhellconeTV – Find your perfect phone today!</p>
+
+            <div class="gadget-category">
+                <div class="zoom play-on-scroll"><button class="active" data-gadget-type="all">All Gadgets</button>
+                </div>
+                {% set brands = ['weihua', 'smasnug', 'xiaomai', 'popo', 'papple'] %}
+                {% for brand in brands %}
+                <div class="zoom play-on-scroll delay-{{ loop.index * 2 }}">
+                    <button data-gadget-type="{{ brand }}">{{ brand.capitalize() }}</button>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="gadget-item-wrap all">
+                {% for item in gadgets %}
+                <div class="gadget-item {{ item.brand }} bottom-up play-on-scroll" data-brand="{{ item.brand }}">
+                    <div class="item-wrap">
+                        <div class="item-img">
+                            <div class="img-holder bg-img" alt="{{ item.name }}"></div>
+                        </div>
+                        <div class="item-info">
+                            <h3 class="gadget-name">{{ item.name }}</h3><span>{{ item.price }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
