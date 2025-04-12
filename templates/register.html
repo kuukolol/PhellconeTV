@@ -13,14 +13,6 @@
                 <img src="{{ url_for('static', path='assets/images/logo.svg') }}" alt="Logo" class="logo-img" />
             </a>
         </div>
-        <div class="menu h-xs">
-            <a href="/#home">
-                <div class="menu-item">Home</div>
-            </a>
-            <a href="/#about-us">
-                <div class="menu-item">About Us</div>
-            </a>
-        </div>
     </div>
 </div>
 
@@ -39,5 +31,30 @@
 {% endblock %}
 
 {% block extra_scripts %}
-<script src="{{ url_for('static', path='assets/js/auth.js') }}"></script>
+<script>
+    {% if register_success %}
+    Swal.fire({
+        icon: "success",
+        title: "Registration Successful!",
+        text: "Your account has been created. Click OK to login.",
+        confirmButtonColor: "#8c7ae6",
+        confirmButtonText: "OK",
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.body.style.opacity = "0";
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 500);
+        }
+    });
+    {% elif register_error %}
+    Swal.fire({
+        title: 'Registration Failed',
+        text: 'User/Email already taken!',
+        icon: 'error',
+        confirmButtonText: 'Try Again'
+    });
+    {% endif %}
+</script>
 {% endblock %}
