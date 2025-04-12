@@ -34,4 +34,5 @@ app.add_middleware(SessionMiddleware, secret_key="9@S~`#+WS£74^rKaCp-6H51s[%")
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", reload=True)
+    uvicorn.run("main:app", reload=True, host="0.0.0.0")
+
